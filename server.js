@@ -1,28 +1,32 @@
 require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
-const app = express();
+const http = require('http');
+const WebSocket = require('ws');
 
 // Leggi le variabili d'ambiente
 const PORT = process.env.PORT || 3000;
+
+// Crea l'app Express
+const app = express();
 
 // Usa Helmet per configurare la CSP
 app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'", "https:"], // Permetti risorse dalla stessa origine e HTTPS
-        scriptSrc: ["'self'", "'unsafe-inline'", "https:"], // Aggiungi domini di script sicuri
-        workerSrc: ["'self'", "blob:"], // Permetti blob workers
-        imgSrc: ["'self'", "data:", "https:"], // Permetti immagini inline e da HTTPS
+        defaultSrc: ["'self'", "https:"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https:"],
+        workerSrc: ["'self'", "blob:"],
+        imgSrc: ["'self'", "data:", "https:"],
       },
     },
   })
 );
 
-// Middleware per CORS (per permettere al frontend di accedere alle API)
+// Middleware per CORS
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); // Permetti richieste da qualsiasi origine
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
@@ -39,7 +43,25 @@ app.get('/', (req, res) => {
   res.send('API Backend is running!');
 });
 
-// Avvia il server
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Backend running at http://localhost:${PORT}`);
+// Crea il server HTTP
+const server = http.createServer(app);
+
+// Crea il server WebSocket utilizzando il server HTTP
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+  ws.on('message', (message) => {
+    console.log('Received:', message);
+    ws.send('Hello from server');
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
+
+// Avvia il server HTTP e WebSocket sulla stessa porta
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on port ${PORT}`);
 });
