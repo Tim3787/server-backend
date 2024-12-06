@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 // Leggi le variabili d'ambiente
-const PORT = process.env.PORT || 3000; // Usa la porta dal file .env o 3000 di default
+const PORT = process.env.PORT || 4000; 
 const DATABASE_URL = process.env.DATABASE_URL;
 const helmet = require('helmet');
 
