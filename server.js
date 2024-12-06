@@ -35,9 +35,10 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'"], // Permetti risorse dalla stessa origine
-        scriptSrc: ["'self'", "'unsafe-inline'"], // Permetti script inline (se necessario)
-        workerSrc: ["'self'", "blob:"], // Permetti workers
+        defaultSrc: ["'self'", "https:"], // Permetti risorse dalla stessa origine e HTTPS
+        scriptSrc: ["'self'", "'unsafe-inline'", "https:"], // Aggiungi domini di script sicuri
+        workerSrc: ["'self'", "blob:"], // Permetti blob workers
+        imgSrc: ["'self'", "data:", "https:"], // Permetti immagini inline e da HTTPS
       },
     },
   })
