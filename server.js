@@ -38,9 +38,9 @@ app.get('/api/rugbyDayEnd', (req, res) => {
   res.json({ endDate: rugbyDayEndDate }); // Restituisce la data come JSON
 });
 
-// Endpoint base
-app.get('/', (req, res) => {
-  res.send('API Backend is running!');
+app.get('/api/rugbyDayEnd', (req, res) => {
+  const rugbyDayEndDate = new Date('2024-12-08T23:59:59');
+  res.json({ endDate: rugbyDayEndDate.toISOString() });
 });
 
 // Crea il server HTTP
