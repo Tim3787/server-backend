@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 // Endpoint API
-const rugbyDayEndDate = new Date('2024-12-08T23:59:59');
+const rugbyDayEndDate = new Date('2024-15-08T23:59:59');
 app.get('/api/rugbyDayEnd', (req, res) => {
   res.json({ endDate: rugbyDayEndDate }); // Restituisce la data come JSON
 });
