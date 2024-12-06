@@ -1,10 +1,10 @@
 {
   "name": "rugpullsrv",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "Test.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node Server.js"
+      "start": "node Test.js"
   },
   "author": "",
   "license": "ISC",
