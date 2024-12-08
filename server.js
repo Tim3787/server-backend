@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 // Data dinamica di inizio evento
-const rugbyDayStartDate = new Date('2024-12-08T06:45:00'); // Data di inizio evento anno-mese-giornoTore:minuti:secondi
+const rugbyDayStartDate = new Date('2024-12-08T06:00:00'); // Data di inizio evento anno-mese-giornoTore:minuti:secondi (mettere 1 ora in meno)
 
 app.get('/api/rugbyDayEnd', (req, res) => {
   // Calcola la data di fine aggiungendo 24 ore alla data di inizio
