@@ -32,15 +32,16 @@ app.use((req, res, next) => {
   next();
 });
 
-// Endpoint API
-const rugbyDayEndDate = new Date('2024-12-06T19:30:59');
-app.get('/api/rugbyDayEnd', (req, res) => {
-  res.json({ endDate: rugbyDayEndDate }); // Restituisce la data come JSON
-});
+// Data dinamica di inizio evento
+const rugbyDayStartDate = new Date('2024-12-08T06:45:00'); // Data di inizio evento anno-mese-giornoTore:minuti:secondi
 
 app.get('/api/rugbyDayEnd', (req, res) => {
-  const rugbyDayEndDate = new Date('2024-12-08T23:59:59');
-  res.json({ endDate: rugbyDayEndDate.toISOString() });
+  // Calcola la data di fine aggiungendo 24 ore alla data di inizio
+  const rugbyDayEndDate = new Date(rugbyDayStartDate.getTime() + 24 * 60 * 60 * 1000);
+  res.json({
+    startDate: rugbyDayStartDate.toISOString(),
+    endDate: rugbyDayEndDate.toISOString(),
+  });
 });
 
 // Crea il server HTTP
